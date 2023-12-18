@@ -1,0 +1,17 @@
+{
+  "name": "15-react-calendar",
+  "version": "1.0.0",
+  "description": "Another try at react calendar",
+  "license": "ISC",
+  "author": "Hamsa Gouda",
+  "main": "index.js",
+  "scripts": {
+    "start": "snowpack dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "snowpack": "^3.0.11"
+  }
+}
