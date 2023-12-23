@@ -12,10 +12,11 @@ const sportsEvents = jsonEvents.data.map((event) => {
   const awayTeamAbbr = event.awayTeam ? event.awayTeam.abbreviation : 'Unknown';
   const title = `${homeTeamAbbr} | ${awayTeamAbbr}`;
 
+  console.log('date: ', date);
   return { title, date };
 });
 
-console.log(sportsEvents);
+console.log('sportsEvents: ', sportsEvents);
 
 export const App = () => {
   const [view, setView] = useState('Calendar');
@@ -35,11 +36,13 @@ export const App = () => {
   }, [events]);
 
   const { days, dateDisplay } = useDate(events, nav);
-  console.log(days);
+  console.log('days', days);
+  console.log('dateDisplay', dateDisplay);
   return (
     <>
       <div id="container">
-        {view}
+        {/* View was just a check */}
+        {/* {view} */}
         <CalendarHeader
           onViewChange={setView}
           dateDisplay={dateDisplay}
@@ -50,13 +53,13 @@ export const App = () => {
         {view === 'Calendar' ? (
           <>
             <div id="weekdays">
-              <div>Sunday</div>
               <div>Monday</div>
               <div>Tuesday</div>
               <div>Wednesday</div>
               <div>Thursday</div>
               <div>Friday</div>
               <div>Saturday</div>
+              <div>Sunday</div>
             </div>
 
             <div id="calendar">
@@ -68,15 +71,18 @@ export const App = () => {
                     if (d.value !== 'padding') {
                       setClicked(d.date);
                     }
+                    console.log('d: ', d);
+                    console.log('date: ', date);
+                    console.log('d.date: ', d.date);
                   }}
                 />
               ))}
             </div>
           </>
         ) : (
-          <div>
+          <div id="listView">
             <h1>List View</h1>
-            {sportsEvents.map((event) => (
+            {events.map((event) => (
               <div>
                 <p>{event.title}</p>
                 <p>{event.date}</p>

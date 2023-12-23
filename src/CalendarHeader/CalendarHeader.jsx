@@ -9,11 +9,11 @@ export const CalendarHeader = ({
   return (
     <div id="header">
       <div id="monthDisplay">{dateDisplay}</div>
-      <div>
-        <button onClick={() => onViewChange('Calendar')} id="backButton">
+      <div id="buttons">
+        <button onClick={() => onViewChange('Calendar')} id="calendarButton">
           Calendar
         </button>
-        <button onClick={() => onViewChange('List')} id="nextButton">
+        <button onClick={() => onViewChange('List')} id="listButton">
           List
         </button>
         <button onClick={onBack} id="backButton">
