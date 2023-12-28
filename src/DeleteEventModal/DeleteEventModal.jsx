@@ -10,7 +10,7 @@ export const DeleteEventModal = ({ onDelete, onClose, events }) => {
           {events.map((event) => (
             <div>
               <p>
-                {event.title} - {event.date}
+                {event.title} - {event.date} - {event.goals}
               </p>
             </div>
           ))}

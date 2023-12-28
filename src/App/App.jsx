@@ -11,9 +11,12 @@ const sportsEvents = jsonEvents.data.map((event) => {
   const homeTeamAbbr = event.homeTeam ? event.homeTeam.abbreviation : 'Unknown';
   const awayTeamAbbr = event.awayTeam ? event.awayTeam.abbreviation : 'Unknown';
   const title = `${homeTeamAbbr} | ${awayTeamAbbr}`;
+  const homeGoals = event.result ? event.result.homeGoals : 'Unknown';
+  const awayGoals = event.result ? event.result.awayGoals : 'Unknown';
+  const goals = `${homeGoals} : ${awayGoals}`;
 
   console.log('date: ', date);
-  return { title, date };
+  return { title, date, goals };
 });
 
 console.log('sportsEvents: ', sportsEvents);
@@ -38,6 +41,8 @@ export const App = () => {
   const { days, dateDisplay } = useDate(events, nav);
   console.log('days', days);
   console.log('dateDisplay', dateDisplay);
+  console.log('Events: ', events);
+
   return (
     <>
       <div id="container">
@@ -72,7 +77,7 @@ export const App = () => {
                       setClicked(d.date);
                     }
                     console.log('d: ', d);
-                    console.log('date: ', date);
+                    // console.log('date: ', date);
                     console.log('d.date: ', d.date);
                   }}
                 />
@@ -86,6 +91,7 @@ export const App = () => {
               <div>
                 <p>{event.title}</p>
                 <p>{event.date}</p>
+                <p>{event.goals}</p>
               </div>
             ))}
           </div>

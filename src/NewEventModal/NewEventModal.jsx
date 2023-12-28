@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 export const NewEventModal = ({ onSave, onClose }) => {
   const [title, setTitle] = useState('');
+  const [goals, setGoals] = useState('');
+  const [date, setDate] = useState('');
   const [error, setError] = useState(false);
 
   return (
@@ -16,12 +18,18 @@ export const NewEventModal = ({ onSave, onClose }) => {
           id="eventTitleInput"
           placeholder="Event Title"
         />
+        <input
+          value={goals}
+          onChange={(e) => setGoals(e.target.value)}
+          id="eventGoalsInput"
+          placeholder="Goals"
+        />
 
         <button
           onClick={() => {
             if (title) {
               setError(false);
-              onSave(title);
+              onSave(title, goals);
             } else {
               setError(true);
             }
