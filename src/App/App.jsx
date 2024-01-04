@@ -17,11 +17,8 @@ const sportsEvents = jsonEvents.data.map((event) => {
   const isScheduled = event.status === 'scheduled' || !event.result;
   const goals = isScheduled ? 'Scheduled' : `${homeGoals} : ${awayGoals}`;
 
-  console.log('date: ', date);
   return { title, date, goals };
 });
-
-console.log('sportsEvents: ', sportsEvents);
 
 export const App = () => {
   const [view, setView] = useState('Calendar');
@@ -41,9 +38,6 @@ export const App = () => {
   }, [events]);
 
   const { days, dateDisplay } = useDate(events, nav);
-  console.log('days', days);
-  console.log('dateDisplay', dateDisplay);
-  console.log('Events: ', events);
 
   return (
     <>
@@ -76,8 +70,6 @@ export const App = () => {
                     if (d.value !== 'padding') {
                       setClicked(d.date);
                     }
-                    console.log('d: ', d);
-                    console.log('d.date: ', d.date);
                   }}
                 />
               ))}

@@ -34,16 +34,11 @@ export const useDate = (events, nav) => {
       month: 'numeric',
       day: 'numeric',
     });
-    console.log(dateString);
 
     setDateDisplay(
       `${dt.toLocaleDateString('en-SE', { month: 'long' })} ${year}`,
     );
-    console.log('dateDisplay: ', dateDisplay);
     const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
-    console.log('paddingDays: ', paddingDays);
-    console.log('dateString: ', dateString);
-    console.log('weekdays: ', weekdays);
 
     const daysArr = [];
 
@@ -67,8 +62,6 @@ export const useDate = (events, nav) => {
         });
       }
     }
-
-    console.log('daysArr: ', daysArr);
 
     setDays(daysArr);
   }, [events, nav]);
