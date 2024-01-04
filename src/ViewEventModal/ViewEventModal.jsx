@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const DeleteEventModal = ({ onDelete, onClose, events }) => {
+export const ViewEventModal = ({ onClose, events }) => {
   return (
     <>
-      <div id="deleteEventModal">
+      <div id="viewEventModal">
         <h2>Event</h2>
 
         <p id="eventText">

@@ -17,7 +17,6 @@ export const useDate = (events, nav) => {
       'Sunday',
     ];
     const dt = new Date();
-    //console.log(dt);
 
     if (nav !== 0) {
       dt.setMonth(new Date().getMonth() + nav);
@@ -42,11 +41,6 @@ export const useDate = (events, nav) => {
     );
     console.log('dateDisplay: ', dateDisplay);
     const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
-    // weekdays is our string of days, startin with sunday, index 0
-    // datestring is defined above, and returns always the first day of this month, the weekday name, here Friday 12/1/2023
-    // then the split(', ') isolates the word Friday
-    // then index of Friday returns 5, because Friday is the 6th day in en-us, but we start counting with 0, bc its Array-index
-    // wenn ich es auf de (sprache) wechsle, findet er den Tag im hard-coded array nicht, daher kommt -1 raus... warum?
     console.log('paddingDays: ', paddingDays);
     console.log('dateString: ', dateString);
     console.log('weekdays: ', weekdays);

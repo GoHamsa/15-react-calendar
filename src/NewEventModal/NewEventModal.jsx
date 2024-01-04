@@ -29,7 +29,7 @@ export const NewEventModal = ({ onSave, onClose }) => {
           onClick={() => {
             if (title) {
               setError(false);
-              onSave(title, goals);
+              onSave(title, goals || 'Scheduled');
             } else {
               setError(true);
             }

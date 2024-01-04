@@ -1,9 +1,10 @@
+import '../../style.css';
 import React, { useEffect, useState } from 'react';
 import { CalendarHeader } from '../CalendarHeader/CalendarHeader.jsx';
 import { Day } from '../Day/Day.jsx';
-import { DeleteEventModal } from '../DeleteEventModal/DeleteEventModal.jsx';
 import { useDate } from '../hooks/useDate';
 import { NewEventModal } from '../NewEventModal/NewEventModal.jsx';
+import { ViewEventModal } from '../ViewEventModal/ViewEventModal.jsx';
 import jsonEvents from './sportData.json';
 
 const sportsEvents = jsonEvents.data.map((event) => {
@@ -13,7 +14,8 @@ const sportsEvents = jsonEvents.data.map((event) => {
   const title = `${homeTeamAbbr} | ${awayTeamAbbr}`;
   const homeGoals = event.result ? event.result.homeGoals : 'Unknown';
   const awayGoals = event.result ? event.result.awayGoals : 'Unknown';
-  const goals = `${homeGoals} : ${awayGoals}`;
+  const isScheduled = event.status === 'scheduled' || !event.result;
+  const goals = isScheduled ? 'Scheduled' : `${homeGoals} : ${awayGoals}`;
 
   console.log('date: ', date);
   return { title, date, goals };
@@ -31,7 +33,7 @@ export const App = () => {
       : sportsEvents,
   );
 
-  const eventForDate = (date) => events.find((e) => e.date === date); // find must be deleted, but that creates an error
+  const eventForDate = (date) => events.find((e) => e.date === date);
   const eventsForDate = (date) => events.filter((e) => e.date === date);
 
   useEffect(() => {
@@ -46,8 +48,6 @@ export const App = () => {
   return (
     <>
       <div id="container">
-        {/* View was just a check */}
-        {/* {view} */}
         <CalendarHeader
           onViewChange={setView}
           dateDisplay={dateDisplay}
@@ -77,7 +77,6 @@ export const App = () => {
                       setClicked(d.date);
                     }
                     console.log('d: ', d);
-                    // console.log('date: ', date);
                     console.log('d.date: ', d.date);
                   }}
                 />
@@ -86,20 +85,22 @@ export const App = () => {
           </>
         ) : (
           <div id="listView">
-            <h1>List View</h1>
-            {events.map((event) => (
-              <div>
-                <p>{event.title}</p>
-                <p>{event.date}</p>
-                <p>{event.goals}</p>
-              </div>
-            ))}
+            {events
+              .sort((a, b) => a.date.localeCompare(b.date))
+              .map((event) => (
+                <div className="event-item" key={event.date + event.title}>
+                  {' '}
+                  <p className="event-title">{event.title}</p>
+                  <p className="event-date">{event.date}</p>
+                  <p className="event-goals">{event.goals}</p>
+                </div>
+              ))}
           </div>
         )}
       </div>
 
       {clicked && !eventForDate(clicked) && (
-        <NewEventModal
+        <ViewEventModal
           onClose={() => setClicked(null)}
           onSave={(title, goals) => {
             setEvents([...events, { title, date: clicked, goals }]);
@@ -109,7 +110,7 @@ export const App = () => {
       )}
 
       {clicked && eventForDate(clicked) && (
-        <DeleteEventModal
+        <ViewEventModal
           eventText={eventForDate(clicked).title}
           events={eventsForDate(clicked)}
           onClose={() => setClicked(null)}
